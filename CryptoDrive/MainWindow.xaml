@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="CryptoDrive.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CryptoDrive"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="8">
+        <StackPanel Orientation="Horizontal">
+            <TextBox x:Name="dirPath" Width="340" CanBeScrollAnchor="True"/>
+            <Button x:Name="dirPathSelector" Click="OnDirPathSelectorClick">folder</Button>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBox x:Name="password" Width="300" PlaceholderText="Password"></TextBox>
+            <Button x:Name="startButton" Click="OnStartButtonClick">Start</Button>
+        </StackPanel>
+    </StackPanel>
+</Window>

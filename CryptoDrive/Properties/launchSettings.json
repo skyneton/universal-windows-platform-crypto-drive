@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "CryptoDrive (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "CryptoDrive (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
