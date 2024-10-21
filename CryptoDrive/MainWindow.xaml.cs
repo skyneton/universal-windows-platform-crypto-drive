@@ -1,13 +1,10 @@
 using CryptoDrive.Cryptography;
 using CryptoDrive.FS;
-using CryptoDrive.Utils;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
-using Windows.UI.ViewManagement;
 using WinRT.Interop;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -39,7 +36,7 @@ namespace CryptoDrive
             picker.FileTypeFilter.Add("*");
             InitializeWithWindow.Initialize(picker, Process.GetCurrentProcess().MainWindowHandle);
             var folder = await picker.PickSingleFolderAsync();
-            if(folder != null)
+            if (folder != null)
             {
                 dirPath.Text = folder.Path;
             }
@@ -47,14 +44,14 @@ namespace CryptoDrive
 
         private void OnStartButtonClick(object sender, RoutedEventArgs e)
         {
-            if(host != null)
+            if (host != null)
             {
                 host.Unmount();
                 host = null;
                 startButton.Content = "Start";
                 return;
             }
-            if(!Directory.Exists(dirPath.Text))
+            if (!Directory.Exists(dirPath.Text))
             {
                 _ = new ContentDialog()
                 {

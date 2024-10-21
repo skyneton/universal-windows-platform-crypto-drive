@@ -7,12 +7,12 @@ namespace CryptoDrive.Utils
     {
         public static byte[] Sha256(byte[] data) => SHA256.HashData(data);
         public static byte[] Md5(byte[] data) => MD5.HashData(data);
-        
+
         public static string ByteArrayToHex(byte[] data, bool upperCase = true)
         {
             if (data.Length == 0) return "";
             var builder = new StringBuilder(data.Length << 1);
-            foreach(var b in data)
+            foreach (var b in data)
             {
                 builder.Append(ComputeHex(b >> 4, upperCase));
                 builder.Append(ComputeHex(b & 0xF, upperCase));
@@ -23,9 +23,9 @@ namespace CryptoDrive.Utils
         public static byte[] HexToByteArray(string hex)
         {
             if (hex.Length == 0) return [];
-            if(hex.Length % 2 != 0) return Encoding.UTF8.GetBytes(hex);
+            if (hex.Length % 2 != 0) return Encoding.UTF8.GetBytes(hex);
             var result = new byte[hex.Length >> 1];
-            for(var i = 0; i < result.Length; i++)
+            for (var i = 0; i < result.Length; i++)
             {
                 result[i] = (byte)(ComputeHex(hex[i << 1]) << 4 | ComputeHex(hex[(i << 1) + 1]));
             }

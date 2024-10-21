@@ -2,7 +2,6 @@
 using CryptoDrive.Utils;
 using System;
 using System.Collections;
-using System.Diagnostics;
 using System.IO;
 using System.Security.AccessControl;
 using System.Text;
@@ -53,7 +52,7 @@ namespace CryptoDrive.FS
 
         public int GetFileInfo(out Fsp.Interop.FileInfo fileInfo)
         {
-            if(Stream != null)
+            if (Stream != null)
             {
                 fileInfo.FileAttributes = (uint)File.GetAttributes(Stream.SafeFileHandle);
                 fileInfo.ReparseTag = 0;
@@ -65,7 +64,8 @@ namespace CryptoDrive.FS
                 fileInfo.ChangeTime = fileInfo.LastWriteTime;
                 fileInfo.IndexNumber = 0;
                 fileInfo.HardLinks = 0;
-            }else
+            }
+            else
                 GetFileInfoFromSystemInfo(DirInfo, out fileInfo);
             return CryptoFileSystem.STATUS_SUCCESS;
         }
@@ -85,12 +85,13 @@ namespace CryptoDrive.FS
         public void SetBasicInfo(uint fileAttributes, ulong creationTime, ulong lastAccessTime, ulong lastWriteTime)
         {
             if (fileAttributes == 0) fileAttributes = (uint)FileAttributes.Normal;
-            if(Stream != null)
+            if (Stream != null)
             {
                 File.SetCreationTimeUtc(Stream.SafeFileHandle, DateTime.FromFileTimeUtc((long)creationTime));
                 File.SetLastAccessTimeUtc(Stream.SafeFileHandle, DateTime.FromFileTimeUtc((long)lastAccessTime));
                 File.SetLastWriteTimeUtc(Stream.SafeFileHandle, DateTime.FromFileTimeUtc((long)lastWriteTime));
-            }else
+            }
+            else
             {
                 if (fileAttributes != unchecked((uint)-1))
                     DirInfo.Attributes = (FileAttributes)fileAttributes;
@@ -117,7 +118,7 @@ namespace CryptoDrive.FS
                 if (!safe) CryptoFileSystem.ThrowIOExceptionWithHResult(ex.HResult);
             }
         }
-        
+
         public byte[] GetSecurityDescriptor()
         {
             if (Stream != null) return Stream.GetAccessControl().GetSecurityDescriptorBinaryForm();
@@ -135,12 +136,13 @@ namespace CryptoDrive.FS
             //    securityInformation |= 4;
             //if((sections & AccessControlSections.Audit) != 0)
             //    securityInformation |= 8;
-            if(Stream != null)
+            if (Stream != null)
             {
                 var security = new FileSecurity(Path, sections);
                 security.SetSecurityDescriptorBinaryForm(securityDescriptor);
                 Stream.SetAccessControl(security);
-            }else
+            }
+            else
             {
                 var security = new DirectorySecurity(DirInfo.FullName, sections);
                 security.SetSecurityDescriptorBinaryForm(securityDescriptor);
@@ -178,9 +180,9 @@ namespace CryptoDrive.FS
         private static string PathEncrypt(byte[] cryptoKey, string path)
         {
             var builder = new StringBuilder();
-            foreach(var name in path.Split('\\'))
+            foreach (var name in path.Split('\\'))
             {
-                if(builder.Length > 0)
+                if (builder.Length > 0)
                     builder.Append('\\');
                 builder.Append(HexAlgorithm.ByteArrayToHex(SimpleCrypt.Reverse(Encoding.UTF8.GetBytes(name), cryptoKey[0])));
             }

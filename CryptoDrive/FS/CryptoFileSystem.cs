@@ -10,7 +10,7 @@ using FileInfo = Fsp.Interop.FileInfo;
 
 namespace CryptoDrive.FS
 {
-    internal class CryptoFileSystem: FileSystemBase
+    internal class CryptoFileSystem : FileSystemBase
     {
         internal static readonly ushort ALLOCATION_UNIT = 2048;
         public string Root { get; private set; }
@@ -35,7 +35,7 @@ namespace CryptoDrive.FS
             host.PostCleanupWhenModifiedOnly = true;
             host.PassQueryDirectoryPattern = true;
             host.FlushAndPurgeOnCleanup = true;
-            host.VolumeCreationTime = (uint) File.GetCreationTimeUtc(Root).ToFileTimeUtc();
+            host.VolumeCreationTime = (uint)File.GetCreationTimeUtc(Root).ToFileTimeUtc();
             host.VolumeSerialNumber = 0;
             return STATUS_SUCCESS;
         }

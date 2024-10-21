@@ -1,14 +1,13 @@
 ﻿using CryptoDrive.Cryptography.Aes;
 using Microsoft.Win32.SafeHandles;
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Security.AccessControl;
 using System.Security.Cryptography;
 
 namespace CryptoDrive.Cryptography
 {
-    internal class CryptoFileStream: Stream
+    internal class CryptoFileStream : Stream
     {
         private static readonly int ChunkSize = 1024 * 8;
         private AesCipher cipher;
@@ -26,17 +25,18 @@ namespace CryptoDrive.Cryptography
 
         public override long Length => Math.Max(0, stream.Length - 1);
 
-        public override long Position {
+        public override long Position
+        {
             get => Math.Max(0, stream.Position - 1);
             set => SetPosition(value);
         }
         public CryptoFileStream(byte[] cryptoKey, FileStream origin)
         {
             stream = origin;
-            if(origin.Length > 0)
+            if (origin.Length > 0)
             {
                 var key = origin.ReadByte();
-                if(key > 0)
+                if (key > 0)
                 {
                     cipher = SimpleCrypt.GetCipher(cryptoKey, (byte)key);
                     cryptoKey = null;
@@ -68,7 +68,7 @@ namespace CryptoDrive.Cryptography
             if (Length <= Position) return -1;
             if (pos < 0) return 0;
             var amount = 0;
-            while(amount < count)
+            while (amount < count)
             {
                 var size = Math.Min(count - amount, ChunkSize - pos);
                 var readAmount = stream.Read(buffer, offset + amount, size);
@@ -91,9 +91,9 @@ namespace CryptoDrive.Cryptography
             CipherInit();
             if (pos < 0) return -1;
             var v = stream.ReadByte();
-            if(v < 0) return -1;
+            if (v < 0) return -1;
             v = cipher.Decrypt((byte)v);
-            if(pos >= ChunkSize)
+            if (pos >= ChunkSize)
             {
                 cipher.Reset();
                 pos = 0;
@@ -104,7 +104,7 @@ namespace CryptoDrive.Cryptography
         public override void Write(byte[] buffer, int offset, int count)
         {
             if (count <= 0 || !CanWrite) return;
-            if(pos < 0)
+            if (pos < 0)
             {
                 var key = (byte)RandomNumberGenerator.GetInt32(256);
                 cipher = SimpleCrypt.GetCipher(cryptoKey, key);
@@ -142,7 +142,7 @@ namespace CryptoDrive.Cryptography
                 pos = 0;
             }
             value = cipher.Encrypt(value);
-            if(++pos >= ChunkSize)
+            if (++pos >= ChunkSize)
             {
                 cipher.Reset();
                 pos = 0;
@@ -153,7 +153,7 @@ namespace CryptoDrive.Cryptography
 
         public override long Seek(long offset, SeekOrigin origin)
         {
-            switch(origin)
+            switch (origin)
             {
                 case SeekOrigin.Begin:
                     SetPosition(offset);
@@ -199,7 +199,7 @@ namespace CryptoDrive.Cryptography
             if (stream.Position + count > stream.Length)
                 count = stream.Length - stream.Position;
             if (count <= 0 || pos < 0) return 0;
-            if(count + pos < ChunkSize)
+            if (count + pos < ChunkSize)
             {
                 var buffer = new byte[count];
                 var readAmount = stream.Read(buffer, 0, (int)count);

@@ -9,7 +9,7 @@ namespace CryptoDrive.FS
         {
             return string.Compare((string)x.Key, (string)y.Key);
         }
-        
+
         public static readonly DirectoryEntryComparer Instance = new DirectoryEntryComparer();
     }
 }

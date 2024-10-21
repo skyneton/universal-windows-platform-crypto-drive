@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 
 namespace CryptoDrive.Cryptography.Aes
 {
@@ -49,7 +48,7 @@ namespace CryptoDrive.Cryptography.Aes
 
         public void DecryptBlock(byte[] input, int inOff, byte[] output, int outOff, int length)
         {
-            for(var i = 0; i < length; i++)
+            for (var i = 0; i < length; i++)
             {
                 var v = (byte)(AesEncryptBlock(cV) ^ input[inOff + i]);
                 Buffer.BlockCopy(cV, 1, cV, 0, 15);
@@ -74,7 +73,7 @@ namespace CryptoDrive.Cryptography.Aes
             var c2 = AesModule.ColumnToUInt(block, 2) ^ roundKey[ptr++];
             var c3 = AesModule.ColumnToUInt(block, 3) ^ roundKey[ptr++];
             var round = 1;
-            while(round < RoundCount - 1)
+            while (round < RoundCount - 1)
             {
                 var a = AesModule.SubMixColumnHelper(c0, c1 >> 8, c2 >> 16, c3 >> 24) ^ roundKey[ptr++];
                 var b = AesModule.SubMixColumnHelper(c1, c2 >> 8, c3 >> 16, c0 >> 24) ^ roundKey[ptr++];
