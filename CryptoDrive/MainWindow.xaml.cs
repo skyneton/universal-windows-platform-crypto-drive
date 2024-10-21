@@ -21,6 +21,9 @@ namespace CryptoDrive
         public MainWindow()
         {
             this.InitializeComponent();
+            AppWindow.Resize(new Windows.Graphics.SizeInt32(470, 200));
+            AppWindow.SetIcon("icon.ico");
+            Title = "Crypto Drive";
             Closed += OnClose;
         }
 
@@ -49,6 +52,9 @@ namespace CryptoDrive
                 host.Unmount();
                 host = null;
                 startButton.Content = "Start";
+                driveNameSelector.IsEnabled = true;
+                dirPath.IsReadOnly = false;
+                password.IsReadOnly = false;
                 return;
             }
             if (!Directory.Exists(dirPath.Text))
@@ -63,8 +69,11 @@ namespace CryptoDrive
                 return;
             }
             host = new Fsp.FileSystemHost(new CryptoFileSystem(SimpleCrypt.GetCryptoKey(password.Text), dirPath.Text));
-            host.Mount("Z:");
+            host.Mount(driveNameSelector.SelectionBoxItem.ToString());
             startButton.Content = "Stop";
+            driveNameSelector.IsEnabled = false;
+            dirPath.IsReadOnly = true;
+            password.IsReadOnly = true;
         }
     }
 }

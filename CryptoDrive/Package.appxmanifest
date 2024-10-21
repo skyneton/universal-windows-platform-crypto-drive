@@ -9,14 +9,14 @@
 
   <Identity
     Name="1ff0dc3f-3a93-459f-8386-d0bf90092fd8"
-    Publisher="CN=skyne"
+    Publisher="CN=mpoisv"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="1ff0dc3f-3a93-459f-8386-d0bf90092fd8" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>CryptoDrive</DisplayName>
-    <PublisherDisplayName>skyne</PublisherDisplayName>
+    <PublisherDisplayName>mpoisv</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -39,8 +39,13 @@
         BackgroundColor="transparent"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"  Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo"/>
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile >
+        <uap:SplashScreen Image="Assets\SplashScreen.png"  BackgroundColor="transparent"/>
+        <uap:LockScreen BadgeLogo="Assets\BadgeLogo.png" Notification="badge"/>
       </uap:VisualElements>
     </Application>
   </Applications>

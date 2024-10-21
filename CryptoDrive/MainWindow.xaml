@@ -13,8 +13,35 @@
             <Button x:Name="dirPathSelector" Click="OnDirPathSelectorClick">folder</Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <TextBox x:Name="password" Width="300" PlaceholderText="Password"></TextBox>
+            <TextBox x:Name="password" Width="280" PlaceholderText="Password"></TextBox>
             <Button x:Name="startButton" Click="OnStartButtonClick">Start</Button>
         </StackPanel>
+        <ComboBox x:Name="driveNameSelector">
+            <ComboBoxItem Content="A:" Tag="A:"/>
+            <ComboBoxItem Content="B:" Tag="B:"/>
+            <ComboBoxItem Content="D:" Tag="D:"/>
+            <ComboBoxItem Content="E:" Tag="E:"/>
+            <ComboBoxItem Content="F:" Tag="F:"/>
+            <ComboBoxItem Content="G:" Tag="G:"/>
+            <ComboBoxItem Content="H:" Tag="H:"/>
+            <ComboBoxItem Content="I:" Tag="I:"/>
+            <ComboBoxItem Content="J:" Tag="J:"/>
+            <ComboBoxItem Content="K:" Tag="K:"/>
+            <ComboBoxItem Content="L:" Tag="L:"/>
+            <ComboBoxItem Content="M:" Tag="M:"/>
+            <ComboBoxItem Content="N:" Tag="N:"/>
+            <ComboBoxItem Content="O:" Tag="O:"/>
+            <ComboBoxItem Content="P:" Tag="P:"/>
+            <ComboBoxItem Content="Q:" Tag="Q:"/>
+            <ComboBoxItem Content="R:" Tag="R:"/>
+            <ComboBoxItem Content="S:" Tag="S:"/>
+            <ComboBoxItem Content="T:" Tag="T:"/>
+            <ComboBoxItem Content="U:" Tag="U:"/>
+            <ComboBoxItem Content="V:" Tag="V:"/>
+            <ComboBoxItem Content="W:" Tag="W:"/>
+            <ComboBoxItem Content="X:" Tag="X:"/>
+            <ComboBoxItem Content="Y:" Tag="Y:"/>
+            <ComboBoxItem Content="Z:" Tag="Z:" IsSelected="True"/>
+        </ComboBox>
     </StackPanel>
 </Window>
