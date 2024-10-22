@@ -89,17 +89,17 @@ namespace CryptoDrive.Cryptography.Aes
             }
 
             var r0 = AesModule.SubMixColumnHelper(c0, c1 >> 8, c2 >> 16, c3 >> 24) ^ roundKey[ptr++];
-            var r1 = AesModule.SubMixColumnHelper(c1, c2 >> 8, c3 >> 16, c0 >> 24) ^ roundKey[ptr++];
-            var r2 = AesModule.SubMixColumnHelper(c2, c3 >> 8, c0 >> 16, c1 >> 24) ^ roundKey[ptr++];
-            var r3 = AesModule.SubMixColumnHelper(c3, c0 >> 8, c1 >> 16, c2 >> 24) ^ roundKey[ptr++];
+            //var r1 = AesModule.SubMixColumnHelper(c1, c2 >> 8, c3 >> 16, c0 >> 24) ^ roundKey[ptr++];
+            //var r2 = AesModule.SubMixColumnHelper(c2, c3 >> 8, c0 >> 16, c1 >> 24) ^ roundKey[ptr++];
+            //var r3 = AesModule.SubMixColumnHelper(c3, c0 >> 8, c1 >> 16, c2 >> 24) ^ roundKey[ptr++];
 
-            c0 = AesModule.SubAndShift(r0, r1 >> 8, r2 >> 16, r3 >> 24) ^ roundKey[ptr++];
-            c1 = AesModule.SubAndShift(r1, r2 >> 8, r3 >> 16, r0 >> 24) ^ roundKey[ptr++];
-            c2 = AesModule.SubAndShift(r2, r3 >> 8, r0 >> 16, r1 >> 24) ^ roundKey[ptr++];
-            c3 = AesModule.SubAndShift(r3, r0 >> 8, r1 >> 16, r2 >> 24) ^ roundKey[ptr++];
-            //ptr += 3;
-            return AesModule.ColumnsToBytes(c0, c1, c2, c3)[0];
-            //return (byte)(AesModule.SubSingle((byte)r0) ^ roundKey[ptr]);
+            //c0 = AesModule.SubAndShift(r0, r1 >> 8, r2 >> 16, r3 >> 24) ^ roundKey[ptr++];
+            //c1 = AesModule.SubAndShift(r1, r2 >> 8, r3 >> 16, r0 >> 24) ^ roundKey[ptr++];
+            //c2 = AesModule.SubAndShift(r2, r3 >> 8, r0 >> 16, r1 >> 24) ^ roundKey[ptr++];
+            //c3 = AesModule.SubAndShift(r3, r0 >> 8, r1 >> 16, r2 >> 24) ^ roundKey[ptr++];
+            ptr += 3;
+            //return AesModule.ColumnsToBytes(c0, c1, c2, c3)[0];
+            return (byte)(AesModule.SubSingle((byte)r0) ^ roundKey[ptr]);
         }
     }
 }
