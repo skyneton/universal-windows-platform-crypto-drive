@@ -254,9 +254,7 @@ namespace CryptoDrive.FS
 
         public override int Rename(object FileNode, object FileDesc, string FileName, string NewFileName, bool ReplaceIfExists)
         {
-            FileName = FileItem.PathCombine(cryptoKey, Root, FileName);
-            NewFileName = FileItem.PathCombine(cryptoKey, Root, NewFileName);
-            FileItem.Rename(FileName, NewFileName, ReplaceIfExists);
+            FileItem.Rename(cryptoKey, Root, FileName, NewFileName, ReplaceIfExists);
             return STATUS_SUCCESS;
         }
 
@@ -291,6 +289,7 @@ namespace CryptoDrive.FS
                 }
                 foreach (var fileSystemInfo in fileSystemInfos)
                     list.Add(FileItem.NameDecrypt(cryptoKey, fileSystemInfo.Name), fileSystemInfo);
+
                 item.FileSystemInfos = new DictionaryEntry[list.Count];
                 list.CopyTo(item.FileSystemInfos, 0);
             }
