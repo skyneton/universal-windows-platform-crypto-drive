@@ -2,6 +2,7 @@
 using CryptoDrive.Utils;
 using System;
 using System.Collections;
+using System.Diagnostics;
 using System.IO;
 using System.Security.AccessControl;
 using System.Text;
@@ -153,7 +154,8 @@ namespace CryptoDrive.FS
         public static void Rename(byte[] cryptoKey, string path, string fileName, string newName, bool overwrite)
         {
             var srcFilePath = GetFileForRename(cryptoKey, PathCombine(cryptoKey, path, fileName[..fileName.LastIndexOf('\\')]), fileName[(fileName.LastIndexOf('\\') + 1)..]);
-            if (srcFilePath.Length <= 0) throw new FileNotFoundException(PathCombine(cryptoKey, path, fileName[..fileName.LastIndexOf('\\')]) + '\\' + fileName[(fileName.LastIndexOf('\\') + 1)..]);
+            if (srcFilePath.Length <= 0)
+                throw new FileNotFoundException(PathCombine(cryptoKey, path, fileName[..fileName.LastIndexOf('\\')]) + '\\' + fileName[(fileName.LastIndexOf('\\') + 1)..]);
             var descFilePath = PathCombine(cryptoKey, path, newName);
             if (Directory.Exists(srcFilePath))
                 Directory.Move(srcFilePath, descFilePath);
@@ -178,8 +180,12 @@ namespace CryptoDrive.FS
         internal static string PathCombine(byte[] cryptoKey, string directory, string name)
         {
             var builder = new StringBuilder(directory);
-            if (!directory.EndsWith('\\')) builder.Append('\\');
-            builder.Append(PathEncrypt(cryptoKey, name[1..]));
+            if (!directory.EndsWith('\\'))
+                builder.Append('\\');
+
+            if(name.Length > 0)
+                builder.Append(PathEncrypt(cryptoKey, name[1..]));
+
             return builder.ToString();
         }
 
@@ -191,14 +197,16 @@ namespace CryptoDrive.FS
             {
                 if (builder.Length > 0)
                     builder.Append('\\');
-                builder.Append(Base256.ToString(SimpleCrypt.Reverse(Encoding.UTF8.GetBytes(name), cryptoKey[0])));
+                //builder.Append(Base256.ToString(SimpleCrypt.Reverse(StringAlgorithm.ToBytes(name), cryptoKey[0])));
+                builder.Append(Base256.ToString(StringAlgorithm.ToBytes(name)));
             }
             return builder.ToString();
         }
 
         internal static string NameDecrypt(byte[] cryptoKey, string name)
         {
-            return Encoding.UTF8.GetString(SimpleCrypt.Origin(Base256.ToBytes(name), cryptoKey[0]));
+            //return StringAlgorithm.ToString(SimpleCrypt.Origin(Base256.ToBytes(name), cryptoKey[0]));
+            return StringAlgorithm.ToString(Base256.ToBytes(name));
         }
 
         private static string GetFileForRename(byte[] cryptoKey, string path, string name)
