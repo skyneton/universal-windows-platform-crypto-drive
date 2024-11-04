@@ -10,7 +10,7 @@
   <Identity
     Name="1ff0dc3f-3a93-459f-8386-d0bf90092fd8"
     Publisher="CN=mpoisv"
-    Version="1.0.4.0" />
+    Version="1.0.5.0" />
 
   <mp:PhoneIdentity PhoneProductId="1ff0dc3f-3a93-459f-8386-d0bf90092fd8" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

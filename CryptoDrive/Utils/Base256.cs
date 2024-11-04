@@ -23,7 +23,7 @@ namespace CryptoDrive.Utils
             var builder = new StringBuilder(data.Length);
             foreach (byte b in data)
             {
-                builder.Append(b < preStr.Length ? preStr[b] : (char)(b - preStr.Length + 0xA0));
+                builder.Append(preStr[b]);
             }
             return builder.ToString();
         }
