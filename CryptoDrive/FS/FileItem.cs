@@ -152,7 +152,10 @@ namespace CryptoDrive.FS
 
         public static void Rename(string fileName, string newName, bool overwrite)
         {
-            File.Move(fileName, newName, overwrite);
+            if(Directory.Exists(fileName))
+                Directory.Move(fileName, newName);
+            else
+                File.Move(fileName, newName, overwrite);
         }
 
         public static void GetFileInfoFromSystemInfo(FileSystemInfo info, out Fsp.Interop.FileInfo fileInfo)

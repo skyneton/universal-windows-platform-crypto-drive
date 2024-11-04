@@ -51,7 +51,6 @@ namespace CryptoDrive.FS
 
         public override int GetSecurityByName(string FileName, out uint FileAttributes, ref byte[] SecurityDescriptor)
         {
-            //Debug.WriteLine("GetSecurityByName " + FileName);
             FileName = FileItem.PathCombine(cryptoKey, Root, FileName);
             var info = new System.IO.FileInfo(FileName);
             FileAttributes = (uint)info.Attributes;
